@@ -1,0 +1,10 @@
+<div class="container mt-2">
+    <h2 class=''>Logs:</h2>
+    <ul>
+        <li *ngFor="let log of logs">
+            <p>Date: {{ log.time | date: 'medium' }}</p>
+            <pre>State: {{ log.state | json }}</pre>
+            <pre>Action: {{ log.action | json }}</pre>
+        </li>
+    </ul>
+</div>

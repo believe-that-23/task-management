@@ -1,0 +1,29 @@
+<div class="row p-2 m-2">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="form-group mb-2 col-md-12">
+            <label for="task">Enter Task</label>
+            <input type="text" placeholder='enter task' class="p-2 form-control" ngModel name="task" required task
+            #task="ngModel">
+          <span class="help-block text-danger" *ngIf="!task.valid && task.touched">Please enter a task</span>
+        </div>
+        <div class="form-group mb-2 col-md-12">
+            <label for="description">Description</label>
+            <input desc #desc="ngModel" type="text" placeholder='add description' class="p-2 form-control" ngModel name="description" required>
+            <span class="help-block text-danger" *ngIf="!desc.valid && desc.touched">Please enter something</span>
+        </div>
+        <div class="form-group mb-2 col-md-12">
+            <label for="dueDate">Due date</label>
+            <input type="date" id='dueDate' class="p-2 form-control" ngModel name="dueDate" useValueAsDate required>
+        </div>
+        <div class="row pt-2">
+            <div class="col-2">Priority</div>
+            <div class="radio" *ngFor="let item of priority">
+                <label>
+                    <input type="radio" name="priority" ngModel [value]="item" required>
+                    {{item}}
+                </label>
+            </div>
+        </div>
+        <button type="submit" class="mt-2 btn btn-success" [disabled]="!f.valid">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,176 @@
+<div class="row mt-3 mb-3 justify-content-between">
+    <div class="col-6 d-flex flex-column">
+        <div class="mb-1">Priority:</div>
+        <div class="mt-1">
+            <span class="low p-2 m-0">Low</span>
+            <span class="medium p-2 m-0">Medium</span>
+            <span class="high p-2 m-0">High</span>
+        </div>
+    </div>
+    <div class="col-6 ">
+        <label for="sortBy">Sort By:</label>
+        <select id="sortBy" (change)="sortTasks($event)">
+            <option value="task">Task Name</option>
+            <option value="priority">Priority</option>
+            <option value="dueDate">Due Date</option>
+            <option value="status">Status</option>
+        </select>
+    </div>
+</div>
+<div class="container border p-2 m-2">
+    <div class="container d-flex flex-column  mt-3 pb-0">
+        <div class="col-12 d-flex justify-content-between flex-wrap m-0">
+            <div class="col-3">
+                <strong>Task</strong>
+            </div>
+            <div class="col-3">
+                <strong>Info</strong>
+            </div>
+            <div class="col-3">
+                <strong>Due-Date</strong>
+            </div>
+            <div class="col-3">
+                <strong>Status</strong>
+            </div>
+        </div>
+    </div>
+    <div class='container row' *ngFor="let task of tasks">
+        <div class="d-flex flex-column border m-2 p-2"
+            [ngClass]="task.priority === 'low' ? 'low' : task.priority=== 'medium' ? 'medium' : 'high'">
+            <div class="col-12 d-flex flex-wrap justify-content-around">
+                <div class="col-3">
+                    {{task.task}}
+                </div>
+                <div class="col-3">
+                    {{task.description}}
+                </div>
+                <div class="col-3">
+                    {{task.dueDate | date: 'dd-MM-yyyy'}}
+                </div>
+                <div class="col-3">
+                    {{task.status}}
+                </div>
+
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-12 d-flex justify-content-end">
+                <div class="col-1">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-info p-1 pt-0 pb-0" (click)="openPopup()"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                        </svg>
+                    </button>
+                    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Edit your Task</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form (ngSubmit)="onSubmit(f, task.id)" #f="ngForm">
+                                        <div class="form-group mb-2 col-md-12">
+                                            <label for="task">Enter Task</label>
+                                            <input type="text" placeholder='enter task' class="p-2 form-control" ngModel
+                                                name="task" required task #task="ngModel" [(ngModel)]="task.task">
+
+                                        </div>
+                                        <div class="form-group mb-2 col-md-12">
+                                            <label for="description">Description</label>
+                                            <input desc #desc="ngModel" type="text" placeholder='add description'
+                                                class="p-2 form-control" ngModel name="description"
+                                                [(ngModel)]="task.description">
+                                            <span class="help-block text-danger"
+                                                *ngIf="!desc.valid && desc.touched">Please
+                                                enter something</span>
+                                        </div>
+                                        <div class="form-group mb-2 col-md-12">
+                                            <label for="dueDate">Due date</label>
+                                            <input type="date" id='dueDate' class="p-2 form-control" ngModel
+                                                name="dueDate" useValueAsDate required>
+                                        </div>
+                                        <div class="row justify-content-between">
+                                            <div class="col-4 pt-2">
+                                                <div class="col-2">Priority</div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" id="html" ngModel required name="priority"
+                                                            value="low">
+                                                        low
+                                                    </label><br>
+
+                                                    <label>
+                                                        <input type="radio" id="css" ngModel required name="priority"
+                                                            value="medium">
+                                                        medium
+                                                    </label><br>
+                                                    <label for="javascript">
+                                                        <input type="radio" id="javascript" ngModel required
+                                                            name="priority" value="high">
+                                                        high
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 pt-2">
+                                                <div class="col-2">Status</div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" id="html" ngModel required name="status"
+                                                            value="to-do">
+                                                        to-do
+                                                    </label><br>
+
+                                                    <label>
+                                                        <input type="radio" id="css" ngModel required name="status"
+                                                            value="in-progress">
+                                                        in-progress
+                                                    </label><br>
+                                                    <label for="javascript">
+                                                        <input type="radio" id="javascript" ngModel required
+                                                            name="status" value="completed">
+                                                        completed
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-end">
+                                            <div class="col-3">
+                                                <button type="submit" class="mt-2 btn btn-success" [disabled]="!f.valid"
+                                                    (click)="closePopup()">Submit</button>
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="button" class="mt-2 btn btn-danger"
+                                                    (click)="closePopup()">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <button (click)="handleEdit(task)" class="btn btn-info p-1 pt-0 pb-0">edit</button> -->
+                </div>
+                <div class="col-1">
+                    <button (click)="handleDelete(task)" class="btn btn-danger p-1 pt-0 pb-0"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-trash" viewBox="0 0 16 16">
+                            <path
+                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                            <path
+                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                        </svg></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
