@@ -1,6 +1,6 @@
 # TaskManagement
 
-deployed link: [a link]https://astonishing-kheer-936f36.netlify.app/#/add-task
+deployed link: https://astonishing-kheer-936f36.netlify.app/#/add-task
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.5.
 This project helps us to store our tasks and properties like priority and due date also which help us to finish them in time.
