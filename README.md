@@ -1,6 +1,18 @@
 # TaskManagement
 
+deployed link: [a link]https://astonishing-kheer-936f36.netlify.app/#/add-task
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.5.
+This project helps us to store our tasks and properties like priority and due date also which help us to finish them in time.
+We can also see the log of changes that we have done. (local storage is used to persist state)
+
+## Tech Stack
+
+Angular | Bootstrap | ngrx | HTML | CSS
+
+## Snapshot of basic functionalities
+
+![Screenshot from 2023-07-30 11-56-08](https://github.com/believe-that-23/task-management/assets/84314022/863d8b64-1897-4376-8ea2-8553404e29cb)
 
 ## Development server
 
